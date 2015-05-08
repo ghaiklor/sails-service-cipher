@@ -1,0 +1,28 @@
+{
+  "name": "sails-service-cipher",
+  "version": "0.0.1",
+  "description": "Service for Sails framework with Cipher features",
+  "main": "index.js",
+  "scripts": {
+    "test": "istanbul cover _mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghaiklor/sails-service-cipher.git"
+  },
+  "keywords": [
+    "sails",
+    "service",
+    "cipher"
+  ],
+  "author": "ghaiklor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ghaiklor/sails-service-cipher/issues"
+  },
+  "homepage": "https://github.com/ghaiklor/sails-service-cipher#readme",
+  "devDependencies": {
+    "istanbul": "^0.3.13",
+    "mocha": "^2.2.4"
+  }
+}
