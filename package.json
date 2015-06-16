@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "bluebird": "^2.9.25",
+    "chai": "^3.0.0",
     "jsonwebtoken": "^5.0.1"
   }
 }
