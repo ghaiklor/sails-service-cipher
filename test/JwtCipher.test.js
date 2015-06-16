@@ -1,8 +1,11 @@
 var assert = require('chai').assert;
+var Promise = require('bluebird');
 var JwtCipher = require('../lib/JwtCipher');
 
 var TEST_STRING = 'TEST_STRING';
 var TEST_STRING_IN_JWT = 'eyJhbGciOiJIUzUxMiJ9.VEVTVF9TVFJJTkc.G3DzFWlnOoJRG2Fqq_q2SNTB560DPVgNOh9LagBC3eY1rg3a-SE5ydMzxkccoF_EwRBmASQMSHXSnizYIkxjfw';
+
+var TEST_OBJECT = {foo: 'bar'};
 
 describe('JwtCipher', function () {
   it('Should properly export', function () {
@@ -56,8 +59,9 @@ describe('JwtCipher', function () {
   it('Should properly encode data', function (done) {
     var cipher = new JwtCipher();
 
-    cipher.encode(TEST_STRING).then(function (result) {
-      assert.equal(result, TEST_STRING_IN_JWT);
+    Promise.all([cipher.encode(TEST_STRING), cipher.encode(TEST_OBJECT)]).spread(function (string, object) {
+      assert.equal(string, TEST_STRING_IN_JWT);
+      assert.typeOf(object, 'string');
       done();
     });
   });
@@ -65,6 +69,7 @@ describe('JwtCipher', function () {
   it('Should properly encode data in sync', function () {
     var cipher = new JwtCipher();
     assert.equal(cipher.encodeSync(TEST_STRING), TEST_STRING_IN_JWT);
+    assert.typeOf(cipher.encodeSync(TEST_OBJECT), 'string');
   });
 
   it('Should properly decode data', function (done) {
