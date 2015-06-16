@@ -1,6 +1,9 @@
 var assert = require('chai').assert;
 var JwtCipher = require('../lib/JwtCipher');
 
+var TEST_STRING = 'TEST_STRING';
+var TEST_STRING_IN_JWT = 'eyJhbGciOiJIUzUxMiJ9.VEVTVF9TVFJJTkc.G3DzFWlnOoJRG2Fqq_q2SNTB560DPVgNOh9LagBC3eY1rg3a-SE5ydMzxkccoF_EwRBmASQMSHXSnizYIkxjfw';
+
 describe('JwtCipher', function () {
   it('Should properly export', function () {
     assert.isFunction(JwtCipher);
@@ -50,11 +53,31 @@ describe('JwtCipher', function () {
     assert.equal(cipher.getExpiresInMinutes(), 200);
   });
 
-  it('Should properly encode data', function () {
+  it('Should properly encode data', function (done) {
+    var cipher = new JwtCipher();
 
+    cipher.encode(TEST_STRING).then(function (result) {
+      assert.equal(result, TEST_STRING_IN_JWT);
+      done();
+    });
   });
 
-  it('Should properly decode data', function () {
+  it('Should properly encode data in sync', function () {
+    var cipher = new JwtCipher();
+    assert.equal(cipher.encodeSync(TEST_STRING), TEST_STRING_IN_JWT);
+  });
 
+  it('Should properly decode data', function (done) {
+    var cipher = new JwtCipher();
+
+    cipher.decode(TEST_STRING_IN_JWT).then(function (result) {
+      assert.equal(TEST_STRING, result);
+      done();
+    });
+  });
+
+  it('Should properly decode data in sync', function () {
+    var cipher = new JwtCipher();
+    assert.equal(cipher.decodeSync(TEST_STRING_IN_JWT), TEST_STRING);
   });
 });
