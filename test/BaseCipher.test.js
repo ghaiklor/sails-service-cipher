@@ -10,6 +10,22 @@ describe('BaseCipher', function () {
     assert.isFunction(BaseCipher.prototype.encodeSync);
     assert.isFunction(BaseCipher.prototype.decode);
     assert.isFunction(BaseCipher.prototype.decodeSync);
+
+    assert.throws(function () {
+      BaseCipher.prototype.encode();
+    }, Error);
+
+    assert.throws(function () {
+      BaseCipher.prototype.encodeSync();
+    }, Error);
+
+    assert.throws(function () {
+      BaseCipher.prototype.decode();
+    }, Error);
+
+    assert.throws(function () {
+      BaseCipher.prototype.decodeSync();
+    }, Error);
   });
 
   it('Should properly make objects configurable', function () {
