@@ -4,6 +4,10 @@
 
 Service for Sails framework with Cipher features.
 
+## List of supported ciphers
+
+- JSON Web Token
+
 ## Getting Started
 
 Install this module.
@@ -24,13 +28,13 @@ That's it, then you can create instances of cipher for your needs in your projec
 ```javascript
 // api/controllers/SomeController.js
 
-var jwtCipher = CipherService.create('jwt', {
+var jwt = CipherService.create('jwt', {
   secretKey: 'SOME_SECRET_KEY'
 });
 
 module.exports = {
   someAction: function(req, res) {
-    res.ok(jwtCipher.encodeSync('SOME_DATA_HERE'));
+    res.ok(jwt.encodeSync('SOME_DATA_HERE'));
   }
 };
 ```
@@ -50,15 +54,36 @@ Each of Cipher instances has 4 methods:
 
 ```javascript
 var jwtCipher = CipherService.create('jwt', {
-  secretKey: 'SECRET',
-  algorithm: 'HS512',
-  expiresInMinutes: 60 * 24
+  secretKey: 'SECRET', // Secret key for signing token
+  algorithm: 'HS512', // Algorithm for signing
+  expiresInMinutes: 60 * 24 // When this token will be expired
 });
 
-jwtCipher.encode('SOME_DATA').then(console.log.bind(console));
-console.log(jwtCipher.encodeSync('SOME_DATA'));
-jwtCipher.decode('SOME_JWT_TOKEN').then(console.log.bind(console));
-console.log(jwtCipher.decodeSync('SOME_JWT_TOKEN'));
+jwtCipher.encode('SOME_DATA').then(console.log.bind(console)); // Encode SOME_DATA and print to console
+jwtCipher.decode('SOME_JWT_TOKEN').then(console.log.bind(console)); // Decode some token and print to console
+console.log(jwtCipher.encodeSync({foo: 'bar'})); // Encode object in sync mode and print to console JWT
+console.log(jwtCipher.decodeSync('SOME_JWT_TOKEN')); // Decode JWT and print to console result
+```
+
+### One more usage in services
+
+```javascript
+// api/services/CipherService.js
+var ciphers = require('sails-service-cipher');
+var jwt = ciphers.create('jwt', {
+  secretKey: 'SOME_SECRET_KEY'
+});
+
+module.exports = {
+  jwt: jwt
+};
+
+// api/controllers/SomeController.js
+module.exports = {
+  someAction: function(req, res) {
+    res.ok(CipherService.jwt.encodeSync('SOME_DATA'));
+  }
+};
 ```
 
 ## License
