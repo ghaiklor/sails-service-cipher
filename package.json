@@ -22,13 +22,12 @@
   },
   "homepage": "https://github.com/ghaiklor/sails-service-cipher#readme",
   "devDependencies": {
-    "chai": "^2.3.0",
+    "chai": "^3.0.0",
     "istanbul": "^0.3.13",
     "mocha": "^2.2.4"
   },
   "dependencies": {
     "bluebird": "^2.9.25",
-    "chai": "^3.0.0",
     "jsonwebtoken": "^5.0.1"
   }
 }
