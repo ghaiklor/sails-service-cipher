@@ -9,6 +9,12 @@ describe('CipherFactory', function () {
     assert.isFunction(CipherService.JWT);
   });
 
+  it('Should properly throw error if type is unrecognized', function () {
+    assert.throw(function () {
+      CipherService.create('NOT_EXISTS');
+    }, Error);
+  });
+
   it('Should properly create JWT cipher', function () {
     var cipher = CipherService.create('jwt');
     assert.instanceOf(cipher, JWTCipher);
