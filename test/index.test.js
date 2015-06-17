@@ -19,4 +19,9 @@ describe('CipherFactory', function () {
     var cipher = CipherService.create('jwt');
     assert.instanceOf(cipher, JWTCipher);
   });
+
+  it('Should properly encode/decode data', function () {
+    var cipher = CipherService.create('jwt');
+    assert.typeOf(cipher.encodeSync('test'), 'string');
+  });
 });
