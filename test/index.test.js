@@ -6,7 +6,7 @@ describe('CipherFactory', function () {
   it('Should properly export', function () {
     assert.isObject(CipherService);
     assert.isFunction(CipherService.create);
-    assert.isFunction(CipherService.JWT);
+    assert.isFunction(CipherService.JWTCipher);
   });
 
   it('Should properly throw error if type is unrecognized', function () {
