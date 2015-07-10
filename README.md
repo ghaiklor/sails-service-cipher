@@ -40,10 +40,10 @@ module.exports = {
 
 Each of Cipher instances has 4 methods:
 
-- encode(data) - Encode your data and returns Promise
-- encodeSync(data) - Encode your data in sync mode
-- decode(data) - Decode your data and returns Promise
-- decodeSync(data) - Decode your data in sync mode
+- encode(data, config) - Encode your data and returns Promise. In config you can override pre-defined config.
+- encodeSync(data, config) - Encode your data in sync mode. In config you can override pre-defined config.
+- decode(data, config) - Decode your data and returns Promise. In config you can override pre-defined config.
+- decodeSync(data, config) - Decode your data in sync mode. In config you can override pre-defined config.
 
 ## Examples
 
