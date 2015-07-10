@@ -85,4 +85,19 @@ describe('JwtCipher', function () {
     var cipher = new JwtCipher();
     assert.equal(cipher.decodeSync(TEST_STRING_IN_JWT), TEST_STRING);
   });
+
+  it('Should properly override config on encode/decode', function () {
+    var cipher = new JwtCipher();
+    var jwt = cipher.encodeSync(TEST_STRING, {
+      secretKey: 'ANOTHER_KEY'
+    });
+
+    assert.throw(function () {
+      cipher.decodeSync(jwt);
+    }, Error);
+
+    assert.equal(cipher.decodeSync(jwt, {
+      secretKey: 'ANOTHER_KEY'
+    }), TEST_STRING);
+  });
 });
