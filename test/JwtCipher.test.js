@@ -6,6 +6,7 @@ var TEST_STRING = 'TEST_STRING';
 var TEST_STRING_IN_JWT = 'eyJhbGciOiJIUzUxMiJ9.VEVTVF9TVFJJTkc.G3DzFWlnOoJRG2Fqq_q2SNTB560DPVgNOh9LagBC3eY1rg3a-SE5ydMzxkccoF_EwRBmASQMSHXSnizYIkxjfw';
 
 var TEST_OBJECT = {foo: 'bar'};
+var TEST_OBJECT_IN_JWT = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJmb28iOiJiYXIifQ.F749NScuZA0Ql5H_XWhkhGuasHeBOLN3xRDis8dnEOuiUMh-SGYQo6ZAYcnxQoBpE818Lvwr9AkMZ6K-IqmaFA';
 
 describe('JwtCipher', function () {
   it('Should properly export', function () {
@@ -48,42 +49,60 @@ describe('JwtCipher', function () {
     var cipher = new JwtCipher({
       secretKey: 'SECRET',
       algorithm: 'HS256',
-      expiresInMinutes: 200
+      expiresInMinutes: 200,
+      noTimestamp: true
     });
 
     assert.equal(cipher.getSecretKey(), 'SECRET');
     assert.equal(cipher.getAlgorithm(), 'HS256');
     assert.equal(cipher.getExpiresInMinutes(), 200);
+    assert.equal(cipher.get('noTimestamp'), true);
   });
 
   it('Should properly encode data', function (done) {
-    var cipher = new JwtCipher();
+    var cipher = new JwtCipher({
+      expiresInMinutes: false,
+      noTimestamp: true
+    });
 
     Promise.all([cipher.encode(TEST_STRING), cipher.encode(TEST_OBJECT)]).spread(function (string, object) {
       assert.equal(string, TEST_STRING_IN_JWT);
-      assert.typeOf(object, 'string');
+      assert.equal(object, TEST_OBJECT_IN_JWT);
       done();
     });
   });
 
   it('Should properly encode data in sync', function () {
-    var cipher = new JwtCipher();
+    var cipher = new JwtCipher({
+      expiresInMinutes: false,
+      noTimestamp: true
+    });
+
     assert.equal(cipher.encodeSync(TEST_STRING), TEST_STRING_IN_JWT);
-    assert.typeOf(cipher.encodeSync(TEST_OBJECT), 'string');
+    assert.equal(cipher.encodeSync(TEST_OBJECT), TEST_OBJECT_IN_JWT);
   });
 
   it('Should properly decode data', function (done) {
-    var cipher = new JwtCipher();
+    var cipher = new JwtCipher({
+      expiresInMinutes: false,
+      noTimestamp: true
+    });
 
-    cipher.decode(TEST_STRING_IN_JWT).then(function (result) {
-      assert.equal(TEST_STRING, result);
+    Promise.all([cipher.decode(TEST_STRING_IN_JWT), cipher.decode(TEST_OBJECT_IN_JWT)]).spread(function (string, object) {
+      assert.equal(TEST_STRING, string);
+      assert.deepEqual(TEST_OBJECT, object);
       done();
     });
   });
 
   it('Should properly decode data in sync', function () {
-    var cipher = new JwtCipher();
+    var cipher = new JwtCipher({
+      expiresInMinutes: false,
+      noTimestamp: true
+    });
+
     assert.equal(cipher.decodeSync(TEST_STRING_IN_JWT), TEST_STRING);
+    assert.deepEqual(cipher.decodeSync(TEST_OBJECT_IN_JWT), TEST_OBJECT);
   });
 
   it('Should properly override config on encode/decode', function () {
