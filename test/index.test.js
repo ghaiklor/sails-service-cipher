@@ -1,18 +1,12 @@
 var assert = require('chai').assert;
 var CipherService = require('../');
-var JWTCipher = require('../lib/JwtCipher');
+var JWTCipher = CipherService.JWTCipher;
 
-describe('CipherFactory', function () {
+describe('CipherService', function () {
   it('Should properly export', function () {
     assert.isObject(CipherService);
     assert.isFunction(CipherService.create);
     assert.isFunction(CipherService.JWTCipher);
-  });
-
-  it('Should properly throw error if type is unrecognized', function () {
-    assert.throw(function () {
-      CipherService.create('NOT_EXISTS');
-    }, Error);
   });
 
   it('Should properly create JWT cipher', function () {
@@ -23,5 +17,11 @@ describe('CipherFactory', function () {
   it('Should properly encode/decode data', function () {
     var cipher = CipherService.create('jwt');
     assert.typeOf(cipher.encodeSync('test'), 'string');
+  });
+
+  it('Should properly throw error if type is unrecognized', function () {
+    assert.throw(function () {
+      CipherService.create('NOT_EXISTS');
+    }, Error);
   });
 });
