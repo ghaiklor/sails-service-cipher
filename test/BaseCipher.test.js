@@ -4,8 +4,8 @@ var BaseCipher = require('../lib/BaseCipher');
 describe('BaseCipher', function () {
   it('Should properly export', function () {
     assert.isFunction(BaseCipher);
-    assert.isFunction(BaseCipher.prototype.getConfig);
-    assert.isFunction(BaseCipher.prototype.setConfig);
+    assert.isFunction(BaseCipher.prototype.get);
+    assert.isFunction(BaseCipher.prototype.set);
     assert.isFunction(BaseCipher.prototype.encode);
     assert.isFunction(BaseCipher.prototype.encodeSync);
     assert.isFunction(BaseCipher.prototype.decode);
@@ -15,12 +15,12 @@ describe('BaseCipher', function () {
   it('Should properly make objects configurable', function () {
     var cipher = new BaseCipher();
 
-    assert.notOk(cipher.getConfig('foo'));
-    assert.instanceOf(cipher.setConfig('foo', 'bar'), BaseCipher);
-    assert.instanceOf(cipher.setConfig('obj', {foo: 'bar'}), BaseCipher);
-    assert.deepEqual(cipher.getConfig('obj'), {foo: 'bar'});
-    assert.equal(cipher.getConfig('obj').foo, 'bar');
-    assert.equal(cipher.getConfig('foo'), 'bar');
+    assert.notOk(cipher.get('foo'));
+    assert.instanceOf(cipher.set('foo', 'bar'), BaseCipher);
+    assert.instanceOf(cipher.set('obj', {foo: 'bar'}), BaseCipher);
+    assert.deepEqual(cipher.get('obj'), {foo: 'bar'});
+    assert.equal(cipher.get('obj.foo'), 'bar');
+    assert.equal(cipher.get('foo'), 'bar');
   });
 
   it('Should properly create cipher with pre-defined config', function () {
@@ -31,29 +31,9 @@ describe('BaseCipher', function () {
       }
     });
 
-    assert.equal(cipher.getConfig('foo'), 'bar');
-    assert.equal(cipher.getConfig('obj').foo, 'bar');
-    assert.deepEqual(cipher.getConfig('obj'), {foo: 'bar'});
-    assert.notOk(cipher.getConfig('NOT_EXISTS'));
-  });
-
-  it('Should properly throw exceptions on un-implemented methods', function () {
-    var cipher = new BaseCipher();
-
-    assert.throws(function () {
-      cipher.encode();
-    }, Error);
-
-    assert.throws(function () {
-      cipher.encodeSync();
-    }, Error);
-
-    assert.throws(function () {
-      cipher.decode();
-    }, Error);
-
-    assert.throws(function () {
-      cipher.decodeSync();
-    }, Error);
+    assert.equal(cipher.get('foo'), 'bar');
+    assert.equal(cipher.get('obj.foo'), 'bar');
+    assert.deepEqual(cipher.get('obj'), {foo: 'bar'});
+    assert.notOk(cipher.get('NOT_EXISTS'));
   });
 });
