@@ -3,6 +3,7 @@
 ## Edge version
 
 - Replace `getConfig()` and `setConfig()` with `get()` and `set()` methods;
+- Setting `expiresInMinutes` to `false` will make non-expiry token;
 
 ## 1.1.0
 
