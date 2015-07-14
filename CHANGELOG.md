@@ -4,6 +4,7 @@
 
 - Replace `getConfig()` and `setConfig()` with `get()` and `set()` methods;
 - Setting `expiresInMinutes` to `false` will make non-expiry token;
+- Merging all pre-defined config in each of decode\encode methods;
 
 ## 1.1.0
 
