@@ -1,17 +1,17 @@
 var assert = require('chai').assert;
 var CipherService = require('../');
-var JWTCipher = CipherService.JWTCipher;
+var JwtCipher = CipherService.JwtCipher;
 
 describe('CipherService', function () {
   it('Should properly export', function () {
     assert.isObject(CipherService);
     assert.isFunction(CipherService.create);
-    assert.isFunction(CipherService.JWTCipher);
+    assert.isFunction(CipherService.JwtCipher);
   });
 
   it('Should properly create JWT cipher', function () {
     var cipher = CipherService.create('jwt');
-    assert.instanceOf(cipher, JWTCipher);
+    assert.instanceOf(cipher, JwtCipher);
   });
 
   it('Should properly encode/decode data', function () {
