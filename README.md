@@ -40,14 +40,41 @@ module.exports = {
 
 Each of Cipher instances has 4 methods:
 
-- encode(data, config) - Encode your data and returns Promise. In config you can override pre-defined config.
-- encodeSync(data, config) - Encode your data in sync mode. In config you can override pre-defined config.
-- decode(data, config) - Decode your data and returns Promise. In config you can override pre-defined config.
-- decodeSync(data, config) - Decode your data in sync mode. In config you can override pre-defined config.
+### encode(data, config)
+
+`data` - Can be any type of data that you need to encode.
+
+`config` - Additional configuration that will mix up to pre-defined config.
+
+Returns Promise.
+
+### encodeSync(data, config)
+
+`data` - Can be any type of data that you need to encode.
+
+`config` - Additional configuration that will mix up to pre-defined config.
+
+Works in sync mode, so it returns encoded data.
+
+### decode(data, config)
+
+`data` - Can be only data that you receive after `encode` or `encodeSync`. Cipher will try to decode this to original state.
+
+`config` - Additional configuration that will mix up to pre-defined config.
+
+Returns Promise.
+
+### decodeSync(data, config)
+
+`data` - Can be only data that you receive after `encode` or `encodeSync`. Cipher will try to decode this to original state.
+
+`config` - Additional configuration that will mix up to pre-defined config.
+
+Works in sync mode, so it returns decoded data.
 
 ## Examples
 
-### JWTCipher
+### JwtCipher
 
 ```javascript
 var jwt = CipherService.create('jwt', {
@@ -61,6 +88,12 @@ jwt.decode('SOME_JWT_TOKEN').then(console.log.bind(console)); // Decode some tok
 console.log(jwt.encodeSync({foo: 'bar'})); // Encode object in sync mode and print to console JWT
 console.log(jwt.decodeSync('SOME_JWT_TOKEN')); // Decode JWT and print to console result
 ```
+
+## How to add another cipher?
+
+- First of all you need to inherits from `BaseCipher`.
+
+- Your class should have 4 methods described above in API section.
 
 ## License
 
