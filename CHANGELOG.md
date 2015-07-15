@@ -5,6 +5,7 @@
 - Replace `getConfig()` and `setConfig()` with `get()` and `set()` methods;
 - Setting `expiresInMinutes` to `false` will make non-expiry token;
 - Merging all pre-defined config in each of decode\encode methods;
+- Add more tests for JWT, so test coverage is 100% now;
 
 ## 1.1.0
 
