@@ -105,7 +105,24 @@ describe('JwtCipher', function () {
     assert.deepEqual(cipher.decodeSync(TEST_OBJECT_IN_JWT), TEST_OBJECT);
   });
 
-  it('Should properly override config on encode/decode', function () {
+  it('Should properly override config on encode/decode', function (done) {
+    var cipher = new JwtCipher();
+
+    cipher.encode(TEST_STRING, {
+      secretKey: 'ANOTHER_KEY'
+    }).then(function (token) {
+      assert.equal(cipher.decodeSync(token, {
+        secretKey: 'ANOTHER_KEY'
+      }), TEST_STRING);
+
+      return cipher.decode(token);
+    }).catch(function (error) {
+      assert.instanceOf(error, Error);
+      done();
+    });
+  });
+
+  it('Should properly override config on encodeSync/decodeSync', function () {
     var cipher = new JwtCipher();
     var jwt = cipher.encodeSync(TEST_STRING, {
       secretKey: 'ANOTHER_KEY'
@@ -118,5 +135,21 @@ describe('JwtCipher', function () {
     assert.equal(cipher.decodeSync(jwt, {
       secretKey: 'ANOTHER_KEY'
     }), TEST_STRING);
+  });
+
+  it('Should properly check audience', function () {
+    var cipher = new JwtCipher({
+      audience: 'TEST'
+    });
+
+    var token = cipher.encodeSync(TEST_OBJECT);
+
+    assert.deepEqual(TEST_OBJECT, cipher.decodeSync(token));
+
+    assert.throw(function () {
+      cipher.decodeSync(token, {
+        audience: 'WRONG'
+      });
+    });
   });
 });
