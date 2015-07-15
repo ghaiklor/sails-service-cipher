@@ -27,8 +27,8 @@
     "mocha": "^2.2.4"
   },
   "dependencies": {
-    "bluebird": "^2.9.25",
-    "jsonwebtoken": "^5.0.1",
+    "bluebird": "^2.9.34",
+    "jsonwebtoken": "^5.0.4",
     "lodash": "^3.10.0"
   }
 }
