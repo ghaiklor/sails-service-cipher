@@ -4,6 +4,8 @@
   "description": "Service for Sails framework with Cipher features",
   "main": "lib/index.js",
   "scripts": {
+    "compile": "babel src --out-dir lib",
+    "prepublish": "npm run compile",
     "test": "istanbul cover _mocha"
   },
   "repository": {
@@ -21,14 +23,14 @@
     "url": "https://github.com/ghaiklor/sails-service-cipher/issues"
   },
   "homepage": "https://github.com/ghaiklor/sails-service-cipher#readme",
-  "devDependencies": {
-    "chai": "^3.0.0",
-    "istanbul": "^0.3.13",
-    "mocha": "^2.2.4"
-  },
   "dependencies": {
-    "bluebird": "^2.9.34",
-    "jsonwebtoken": "^5.0.4",
-    "lodash": "^3.10.0"
+    "jsonwebtoken": "^5.0.5",
+    "lodash": "^3.10.1"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "chai": "^3.3.0",
+    "istanbul": "^0.3.21",
+    "mocha": "^2.3.3"
   }
 }
