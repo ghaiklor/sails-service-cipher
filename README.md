@@ -16,22 +16,18 @@ Install this module.
 npm install sails-service-cipher
 ```
 
-Then require it in your service.
+Then require it in your service and create cipher instance.
 
 ```javascript
 // api/services/CipherService.js
-module.exports = require('sails-service-cipher');
-```
+import CipherService from 'sails-service-cipher';
 
-That's it, then you can create instances of cipher for your needs in your project.
+export default CipherService('jwt');
 
-```javascript
-// api/controllers/SomeController.js
-var jwt = CipherService.create('jwt');
-
-module.exports = {
-  someAction: function(req, res) {
-    res.ok(jwt.encodeSync('SOME_DATA_HERE'));
+// api/controllers/CipherController.js
+export default {
+  cipher: function(req, res) {
+    res.ok(CipherService.encodeSync('DATA_HERE'));
   }
 };
 ```
@@ -77,7 +73,7 @@ Works in sync mode, so it returns decoded data.
 ### JwtCipher
 
 ```javascript
-var jwt = CipherService.create('jwt', {
+let jwt = CipherService('jwt', {
   secretKey: '<SECRET_KEY>', // Secret key for signing token
   algorithm: 'HS512', // Algorithm for signing
   expiresInMinutes: 60 * 24 // When this token will be expired
