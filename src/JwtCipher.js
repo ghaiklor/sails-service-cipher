@@ -73,6 +73,11 @@ export default class JwtCipher extends BaseCipher {
     return expiresInMinutes === false ? expiresInMinutes : expiresInMinutes || EXPIRES_IN_MINUTES;
   }
 
+  /**
+   * Set expires interval in minutes
+   * @param {Number} time
+   * @returns {JwtCipher}
+   */
   setExpiresInMinutes(time) {
     this.set('expiresInMinutes', time);
     return this;
