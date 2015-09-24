@@ -85,7 +85,7 @@ export default class JwtCipher extends BaseCipher {
    * @returns {Promise.resolve}
    */
   encode(data, config) {
-    return Promise.resolve(this.encodeSync(_data, _config));
+    return Promise.resolve(this.encodeSync(data, config));
   }
 
   /**
