@@ -18,6 +18,6 @@ describe('CipherService', () => {
   });
 
   it('Should properly throw error if type is unrecognized', () => {
-    assert.throw(() => CipherService.create('NOT_EXISTS'), Error);
+    assert.throw(() => CipherService('NOT_EXISTS'), Error);
   });
 });
