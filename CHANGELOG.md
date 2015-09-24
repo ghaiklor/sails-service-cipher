@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0
+
+- Migration from ES5 to ES6 syntax;
+- Remove `.create()` method from CipherService. CipherService is a function now which you can call with `CipherService('jwt')`;
+
 ## 2.0.0
 
 - Replace `getConfig()` and `setConfig()` with `get()` and `set()` methods;
