@@ -64,11 +64,13 @@ describe('JwtCipher', () => {
       noTimestamp: true
     });
 
-    Promise.all([cipher.encode(TEST_STRING), cipher.encode(TEST_OBJECT)]).spread((string, object) => {
-      assert.equal(string, TEST_STRING_IN_JWT);
-      assert.equal(object, TEST_OBJECT_IN_JWT);
-      done();
-    });
+    cipher
+      .encode(TEST_OBJECT)
+      .then(object => {
+        assert.equal(object, TEST_OBJECT_IN_JWT);
+        done();
+      })
+      .catch(done);
   });
 
   it('Should properly encode data in sync', () => {
@@ -87,11 +89,13 @@ describe('JwtCipher', () => {
       noTimestamp: true
     });
 
-    Promise.all([cipher.decode(TEST_STRING_IN_JWT), cipher.decode(TEST_OBJECT_IN_JWT)]).spread((string, object) => {
-      assert.equal(TEST_STRING, string);
-      assert.deepEqual(TEST_OBJECT, object);
-      done();
-    });
+    cipher
+      .decode(TEST_OBJECT_IN_JWT)
+      .then(object => {
+        assert.deepEqual(TEST_OBJECT, object);
+        done();
+      })
+      .catch(done);
   });
 
   it('Should properly decode data in sync', () => {
