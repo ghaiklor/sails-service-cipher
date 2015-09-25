@@ -1,6 +1,6 @@
 import JwtCipher from './JwtCipher';
 
-var ciphers = {
+var cipher = {
   jwt: JwtCipher
 };
 
@@ -11,8 +11,8 @@ var ciphers = {
  * @returns {Object}
  */
 export default function (type, config) {
-  if (ciphers[type.toLowerCase()] instanceof Function) {
-    return new ciphers[type.toLowerCase()](config);
+  if (cipher[type.toLowerCase()] instanceof Function) {
+    return new cipher[type.toLowerCase()](config);
   } else {
     throw new Error('Unrecognized type -> ' + type);
   }
