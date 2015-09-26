@@ -38,11 +38,11 @@ export default class JwtCipher extends BaseCipher {
 
   /**
    * Set new secret key
-   * @param {String} secret
+   * @param {String} _secret
    * @returns {JwtCipher}
    */
-  setSecretKey(secret) {
-    this.set('secretKey', secret);
+  setSecretKey(_secret) {
+    this.set('secretKey', _secret);
     return this;
   }
 
@@ -56,11 +56,11 @@ export default class JwtCipher extends BaseCipher {
 
   /**
    * Set new algorithm
-   * @param {String} algorithm
+   * @param {String} _algorithm
    * @returns {JwtCipher}
    */
-  setAlgorithm(algorithm) {
-    this.set('algorithm', algorithm);
+  setAlgorithm(_algorithm) {
+    this.set('algorithm', _algorithm);
     return this;
   }
 
@@ -75,67 +75,67 @@ export default class JwtCipher extends BaseCipher {
 
   /**
    * Set expires interval in minutes
-   * @param {Number} time
+   * @param {Number} _time
    * @returns {JwtCipher}
    */
-  setExpiresInMinutes(time) {
-    this.set('expiresInMinutes', time);
+  setExpiresInMinutes(_time) {
+    this.set('expiresInMinutes', _time);
     return this;
   }
 
   /**
    * Encode cipher
-   * @param {Object} data Data to encode
-   * @param {Object} [config] Additional options for jwt.sign
+   * @param {Object} _data Data to encode
+   * @param {Object} [_config] Additional options for jwt.sign
    * @returns {Promise.resolve}
    */
-  encode(data, config) {
-    return Promise.resolve(this.encodeSync(data, config));
+  encode(_data, _config) {
+    return Promise.resolve(this.encodeSync(_data, _config));
   }
 
   /**
    * Encode data to JSON Web Token
-   * @param {Object} data Data that need to encode
+   * @param {Object} _data Data that need to encode
    * @param {Object} [_config] Specify options for jwt.sign
    * @returns {String} Returns JSON Web Token in string format
    */
-  encodeSync(data, _config) {
+  encodeSync(_data, _config) {
     let config = _.merge({}, this.get(), {
       algorithm: this.getAlgorithm(),
       expiresInMinutes: this.getExpiresInMinutes(),
       secretKey: this.getSecretKey()
     }, _config);
 
-    return jwt.sign(data, config.secretKey, config);
+    return jwt.sign(_data, config.secretKey, config);
   }
 
   /**
    * Decode token in async mode
-   * @param {Object} data Data to decode
+   * @param {Object} _data Data to decode
    * @param {Object} [_config] Options for jwt.verify
    * @returns {Object}
    */
-  decode(data, _config) {
+  decode(_data, _config) {
     let config = _.merge({}, this.get(), {
       secretKey: this.getSecretKey()
     }, _config);
 
     return new Promise((resolve, reject) => {
-      jwt.verify(data, config.secretKey, config, (error, decoded) => error ? reject(error) : resolve(decoded));
+      jwt.verify(_data, config.secretKey, config, (error, decoded) => error ? reject(error) : resolve(decoded));
     });
   }
 
   /**
    * Decode token in sync mode
-   * @param {Object} data Data to decode
+   * @param {Object} _data Data to decode
    * @param {Object} [_config] Advanced options for jwt.verify
    * @returns {*}
    */
-  decodeSync(data, _config) {
+  decodeSync(_data, _config) {
     let config = _.merge({}, this.get(), {
       secretKey: this.getSecretKey()
     }, _config);
 
-    return jwt.verify(data, config.secretKey, config);
+    return jwt.verify(_data, config.secretKey, config);
   }
 }
