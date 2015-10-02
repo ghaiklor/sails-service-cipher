@@ -1,6 +1,6 @@
 import JwtCipher from './JwtCipher';
 
-var cipher = {
+const cipher = {
   jwt: JwtCipher
 };
 
