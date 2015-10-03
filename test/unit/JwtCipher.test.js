@@ -31,9 +31,9 @@ describe('JwtCipher', () => {
   it('Should properly get/set expires in minutes', () => {
     let cipher = new JwtCipher();
 
-    assert.equal(cipher.getExpiresInMinutes(), 60 * 24);
-    assert.instanceOf(cipher.setExpiresInMinutes(200), JwtCipher);
-    assert.equal(cipher.getExpiresInMinutes(), 200);
+    assert.equal(cipher.getExpiresIn(), '24h');
+    assert.instanceOf(cipher.setExpiresIn(200), JwtCipher);
+    assert.equal(cipher.getExpiresIn(), 200);
   });
 
   it('Should properly create cipher with default options', () => {
@@ -41,26 +41,26 @@ describe('JwtCipher', () => {
 
     assert(cipher.getSecretKey(), 'DEFAULT_SECRET_KEY');
     assert(cipher.getAlgorithm(), 'HS512');
-    assert(cipher.getExpiresInMinutes(), 60 * 24);
+    assert(cipher.getExpiresIn(), 60 * 24);
   });
 
   it('Should properly create cipher with custom options', () => {
     let cipher = new JwtCipher({
       secretKey: 'SECRET',
       algorithm: 'HS256',
-      expiresInMinutes: 200,
+      expiresIn: 200,
       noTimestamp: true
     });
 
     assert.equal(cipher.getSecretKey(), 'SECRET');
     assert.equal(cipher.getAlgorithm(), 'HS256');
-    assert.equal(cipher.getExpiresInMinutes(), 200);
+    assert.equal(cipher.getExpiresIn(), 200);
     assert.equal(cipher.get('noTimestamp'), true);
   });
 
   it('Should properly encode data', done => {
     let cipher = new JwtCipher({
-      expiresInMinutes: false,
+      expiresIn: false,
       noTimestamp: true
     });
 
@@ -75,7 +75,7 @@ describe('JwtCipher', () => {
 
   it('Should properly encode data in sync', () => {
     let cipher = new JwtCipher({
-      expiresInMinutes: false,
+      expiresIn: false,
       noTimestamp: true
     });
 
@@ -85,7 +85,7 @@ describe('JwtCipher', () => {
 
   it('Should properly decode data', done => {
     let cipher = new JwtCipher({
-      expiresInMinutes: false,
+      expiresIn: false,
       noTimestamp: true
     });
 
@@ -100,7 +100,7 @@ describe('JwtCipher', () => {
 
   it('Should properly decode data in sync', () => {
     let cipher = new JwtCipher({
-      expiresInMinutes: false,
+      expiresIn: false,
       noTimestamp: true
     });
 

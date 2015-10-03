@@ -17,11 +17,11 @@ const SECRET_KEY = 'DEFAULT_SECRET_KEY';
 const ALGORITHM = 'HS512';
 
 /**
- * Time interval in minutes when token will be expired or false if not expires
- * @type {Number}
+ * Time interval when token will be expired or false if not expires
+ * @type {String|Number}
  * @private
  */
-const EXPIRES_IN_MINUTES = 60 * 24;
+const EXPIRES_IN = '24h';
 
 export default class JwtCipher extends BaseCipher {
   constructor(...args) {
@@ -65,21 +65,21 @@ export default class JwtCipher extends BaseCipher {
   }
 
   /**
-   * Get expires interval in minutes
-   * @returns {Number}
+   * Get expires interval
+   * @returns {String|Number}
    */
-  getExpiresInMinutes() {
-    let expiresInMinutes = this.get('expiresInMinutes');
-    return expiresInMinutes === false ? expiresInMinutes : expiresInMinutes || EXPIRES_IN_MINUTES;
+  getExpiresIn() {
+    let expiresIn = this.get('expiresIn');
+    return expiresIn === false ? expiresIn : expiresIn || EXPIRES_IN;
   }
 
   /**
-   * Set expires interval in minutes
-   * @param {Number} _time
+   * Set expires interval
+   * @param {String|Number} _time
    * @returns {JwtCipher}
    */
-  setExpiresInMinutes(_time) {
-    this.set('expiresInMinutes', _time);
+  setExpiresIn(_time) {
+    this.set('expiresIn', _time);
     return this;
   }
 
@@ -102,7 +102,7 @@ export default class JwtCipher extends BaseCipher {
   encodeSync(_data, _config) {
     let config = _.merge({}, this.get(), {
       algorithm: this.getAlgorithm(),
-      expiresInMinutes: this.getExpiresInMinutes(),
+      expiresIn: this.getExpiresIn(),
       secretKey: this.getSecretKey()
     }, _config);
 
