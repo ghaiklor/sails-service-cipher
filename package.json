@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/ghaiklor/sails-service-cipher#readme",
   "dependencies": {
-    "jsonwebtoken": "5.0.5",
+    "jsonwebtoken": "5.1.0",
     "lodash": "3.10.1"
   },
   "devDependencies": {
