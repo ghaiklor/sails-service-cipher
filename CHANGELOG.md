@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0
+
+- `encode()` in JWTCipher is asynchronous now;
+- Replace `expiresInMinutes()` with `expiresIn`;
+- Update `jsonwebtoken` to v5.4.0;
+
 ## 3.0.3
 
 - General improvements;
