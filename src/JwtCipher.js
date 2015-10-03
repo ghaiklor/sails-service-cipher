@@ -90,7 +90,15 @@ export default class JwtCipher extends BaseCipher {
    * @returns {Promise.resolve}
    */
   encode(_data, _config) {
-    return Promise.resolve(this.encodeSync(_data, _config));
+    let config = _.merge({}, this.get(), {
+      algorithm: this.getAlgorithm(),
+      expiresIn: this.getExpiresIn(),
+      secretKey: this.getSecretKey()
+    }, _config);
+
+    return new Promise((resolve, reject) => {
+      jwt.sign(_data, config.secretKey, config, (encoded) => resolve(encoded));
+    });
   }
 
   /**
