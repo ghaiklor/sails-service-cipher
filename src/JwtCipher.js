@@ -24,8 +24,8 @@ const ALGORITHM = 'HS512';
 const EXPIRES_IN = '24h';
 
 export default class JwtCipher extends BaseCipher {
-  constructor(...args) {
-    super(...args);
+  constructor(config) {
+    super(config);
   }
 
   /**
