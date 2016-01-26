@@ -14,7 +14,7 @@ describe('CipherService', () => {
 
   it('Should properly encode/decode data', () => {
     let cipher = CipherService('jwt');
-    assert.typeOf(cipher.encodeSync('test'), 'string');
+    assert.isString(cipher.encodeSync({foo: 'bar'}));
   });
 
   it('Should properly throw error if type is unrecognized', () => {

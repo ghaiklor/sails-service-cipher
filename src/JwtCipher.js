@@ -69,8 +69,7 @@ export default class JwtCipher extends BaseCipher {
    * @returns {String|Number}
    */
   getExpiresIn() {
-    let expiresIn = this.get('expiresIn');
-    return expiresIn === false ? expiresIn : expiresIn || EXPIRES_IN;
+    return this.get('expiresIn') || EXPIRES_IN;
   }
 
   /**
