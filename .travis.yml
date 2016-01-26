@@ -10,8 +10,9 @@ node_js:
   - 5
   - 4
   - 0.12
+before_install:
+  - npm install -g npm@latest
 before_script:
-  - npm install npm@latest
   - npm prune
 after_success:
   - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
