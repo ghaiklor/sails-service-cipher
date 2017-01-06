@@ -96,6 +96,8 @@ console.log(jwt.encodeSync({foo: 'bar'})); // Encode object in sync mode and pri
 console.log(jwt.decodeSync('SOME_JWT_TOKEN')); // Decode JWT and print to console result
 ```
 
+For more options in `config` object, please, refer to [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package on npm.
+
 ## How to add another cipher?
 
 - First of all you need to inherits from `BaseCipher`.
