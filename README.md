@@ -87,7 +87,7 @@ Works in sync mode, so it returns decoded data.
 let jwt = CipherService('jwt', {
   secretKey: '<SECRET_KEY>', // Secret key for signing token
   algorithm: 'HS512', // Algorithm for signing
-  expiresInMinutes: 60 * 24 // When this token will be expired
+  expiresIn: 60 * 24 // When this token will be expired
 });
 
 jwt.encode('SOME_DATA').then(console.log.bind(console)); // Encode SOME_DATA and print to console
